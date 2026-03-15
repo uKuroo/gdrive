@@ -38,8 +38,10 @@ def set_config(observed_folder, drive_folder_id):
     json.dump(CONFIG, f, ensure_ascii=False, indent=2)
 
 def load_config():
-  with open('src/config/config.json', 'r', encoding='utf-8') as f:
+  global OBSERVED_FOLDER, DRIVE_FOLDER_ID
+  
+  with open('settings.json', 'r', encoding='utf-8') as f:
     config = json.load(f)
 
-    OBSERVED_FOLDER = config.get("OBSERVED_FOLDER", "")
-    DRIVE_FOLDER_ID = config.get("BASE_EXTENSION_FOLDER", "")
+    OBSERVED_FOLDER = config["OBSERVED_FOLDER"]
+    DRIVE_FOLDER_ID = config["DRIVE_FOLDER_ID"]

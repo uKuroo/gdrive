@@ -1,5 +1,8 @@
 import os
+from pathlib import Path
 import utils.directory_util as directory_util
+import config.settings as settings
+import utils.parser as parser
 
 LINE = '============================================================='
 
@@ -74,15 +77,58 @@ def ask_directory():
     while result == None:
         directory = input("Type the observed directory: ")
 
-        if directory_util.exists_directory(directory):
+        dir = directory_util.exists_directory(directory)
+        if dir and directory != '':
             clear_terminal()
-            result = directory
+            result = dir
         
         clear_terminal()
         print("Directory don't exist!")
     
     clear_terminal()
     return result
+
+def directory_navigate(files, directory):
+    print_center('Choose the file using the index')
+    
+    print(f'Current directory: {directory}\n')
+
+    can_return = False
+    if directory != Path(settings.OBSERVED_FOLDER).as_posix():
+        can_return = True
+        print('(0) ..\n')
+
+    if not files:
+        print('No files found!')
+    else:
+        for i, file in enumerate(files, start=1):
+            type = "FOLDER" if file.is_dir() else "FILE"
+            print(f'({i}) [{type}] {file.name}')
+
+    print('\n(C) Redirect to home')
+    print('(Z) Select the current directory (zip compact)')
+
+    selected_index = input('\n-> ')
+
+    if selected_index.lower() == 'c':
+        return None
+    
+    if selected_index.lower() == 'z':
+        return 'z'
+    
+    is_number, selected_index = parser.try_parse_int(selected_index)
+
+    if not is_number or selected_index > len(files) or selected_index < 0:
+        clear_terminal()
+        return directory_navigate(files, directory)
+
+    if selected_index == 0 and not can_return:
+        clear_terminal()
+        return directory_navigate(files, directory)
+    elif selected_index == 0 and can_return:
+        return Path(directory).parent
+
+    return files[selected_index - 1]
 
 
 
