@@ -59,23 +59,40 @@ def ask_confirmation(message, default = True):
     clear_terminal()
     return result
 
-def ask_text(message):
-    result = input(message)
+def ask_text(message, center = None):
+    if center:
+        print_center(center)
+
+    result = input(f'{message}\n-> ')
     
     clear_terminal()
     return result
 
 def ask_menu_home():
-    print_center('HOME')
+    while True:
+        clear_terminal()
 
-    input()
+        print_center('HOME')
+
+        print('\n(1) Select File')
+        print('(2) Configure')
+
+        is_number, selected_option = parser.try_parse_int(input('\n-> '))
+
+        if not is_number or selected_option < 0 or selected_option > 2:
+            continue
+
+        return selected_option
 
 def ask_directory():
     result = None
     directory = ''
 
+    clear_terminal()
     while result == None:
-        directory = input("Type the observed directory: ")
+        print_center('Configuration')
+
+        directory = input("Type the observed directory: \n-> ")
 
         dir = directory_util.exists_directory(directory)
         if dir and directory != '':

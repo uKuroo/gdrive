@@ -6,7 +6,11 @@ def printar(directory):
 
     path = Path(directory).expanduser()
 
-    files = list(path.iterdir())
+    try:
+        files = list(path.iterdir())
+    except PermissionError:
+        cli.wait_any_input("No permission to access the folder")
+        return printar(Path(directory).parent)
 
     selected_file = cli.directory_navigate(files, directory)
 
