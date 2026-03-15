@@ -1,5 +1,6 @@
 import json
 import os
+from pathlib import Path
 
 OBSERVED_FOLDER = ''
 DRIVE_FOLDER_ID = ''
@@ -12,6 +13,11 @@ DEFAULT_CONFIG = {
 }
 
 def has_valid_json():
+  path = Path("settings.json")
+
+  if not path.exists():
+        return False
+
   with open('settings.json', 'r', encoding='utf-8') as f:
     valid = True
 
