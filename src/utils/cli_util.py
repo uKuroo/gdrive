@@ -1,6 +1,24 @@
 import os
 import utils.directory_util as directory_util
 
+LINE = '============================================================='
+
+def print_center(message):
+    message_len = len(message)
+    line_len = len(LINE)
+    diff = (line_len - message_len) // 2
+
+    centered = ''
+
+    for i in range(diff):
+        centered += ' '
+
+    print(LINE)
+        
+    print(f'{centered}{message}')
+
+    print(LINE)
+
 def clear_terminal():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -8,6 +26,7 @@ def wait_any_input(message = ''):
     if message != '':
         print(message)
     input("(type anything to continue)")
+    clear_terminal()
 
 def ask_confirmation(message, default = True):
     result = None
@@ -36,6 +55,17 @@ def ask_confirmation(message, default = True):
 
     clear_terminal()
     return result
+
+def ask_text(message):
+    result = input(message)
+    
+    clear_terminal()
+    return result
+
+def ask_menu_home():
+    print_center('HOME')
+
+    input()
 
 def ask_directory():
     result = None

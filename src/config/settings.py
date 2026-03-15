@@ -7,8 +7,8 @@ DRIVE_FOLDER_ID = ''
 
 HOME_DIR = os.path.expanduser("~")
 
-DEFAULT_CONFIG = {
-  "OBSERVED_FOLDER": HOME_DIR,
+CONFIG = {
+  "OBSERVED_FOLDER": "",
   "DRIVE_FOLDER_ID": ""
 }
 
@@ -23,16 +23,19 @@ def has_valid_json():
 
     config = json.load(f)
     
-    missing_keys = [key for key in DEFAULT_CONFIG if key not in config]
+    missing_keys = [key for key in CONFIG if key not in config]
     
     if missing_keys:
       valid = False
 
     return valid
     
-def set_default_config():
+def set_config(observed_folder, drive_folder_id):
+  CONFIG['OBSERVED_FOLDER'] = observed_folder
+  CONFIG['DRIVE_FOLDER_ID'] = drive_folder_id
+
   with open('settings.json', 'w', encoding='utf-8') as f:
-    json.dump(DEFAULT_CONFIG, f, ensure_ascii=False, indent=2)
+    json.dump(CONFIG, f, ensure_ascii=False, indent=2)
 
 def load_config():
   with open('src/config/config.json', 'r', encoding='utf-8') as f:
