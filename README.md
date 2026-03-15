@@ -19,28 +19,28 @@ The architecture was designed following the Separation of Concerns principle:
 GDRIVE/
 │
 ├── src/
-│   ├── auth/               # Credential management and token generation
-│   │   ├── credentials/    # ⚠️ (Add your credentials.json here)
-│   │   └── google_auth.py  # API authentication logic
+│   ├── auth/                   # Credential management and token generation
+│   │   ├── credentials/        # ⚠️ (Add your credentials.json here)
+│   │   └── google_auth.py      # API authentication logic
 │   │
-│   ├── cli/                # User interface
-│   │   └── cli_manager.py  # Menus and inputs
+│   ├── cli/                    # User interface
+│   │   └── cli_manager.py      # Menus and inputs
 │   │
-│   ├── config/             # Static system configurations
-│   │   └── settings.py     # Variable and path loading
+│   ├── config/                 # Static system configurations
+│   │   └── settings.py         # Variable and path loading
 │   │
-│   ├── core/               # Main business logic
-│   │   └── file_selector.py# Orchestrates file/folder selection
+│   ├── core/                   # Main business logic
+│   │   └── file_selector.py    # Orchestrates file/folder selection
 │   │
-│   ├── integration/        # External API communication
-│   │   └── drive_provider.py # Upload and folder creation methods in GDrive
+│   ├── integration/            # External API communication
+│   │   └── drive_provider.py   # Upload and folder creation methods in GDrive
 │   │
-│   ├── utils/              # Generic helper tools
-│   │   ├── directory_util.py # OS path manipulation
-│   │   ├── parser.py       # Data formatting and conversion
-│   │   └── zip_handler.py  # Compression logic (shutil/zipfile)
+│   ├── utils/                  # Generic helper tools
+│   │   ├── directory_util.py   # OS path manipulation
+│   │   ├── parser.py           # Data formatting and conversion
+│   │   └── zip_handler.py      # Compression logic (shutil/zipfile)
 │   │
-│   └── main.py             # Application entrypoint
+│   └── main.py                 # Application entrypoint
 │
 ├── settings.json           # User configurations (Root folder ID, etc.)
 ├── requirements.txt        # Project dependencies (pip)
